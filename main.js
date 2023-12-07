@@ -4,7 +4,9 @@ const db = require('mysql2');
 const cors = require ('cors');
 
 const app = express();
+const router = express.Router();
 const port = 3002;
+
 
 app.use (cors());
 app.use(express.json());
@@ -117,6 +119,16 @@ app.post('/users', (req, res) => {
     });
 });
 
+app.post('/favorites', (req, res) => {
+    const userId = req.body.userId;
+    const cafeId = req.body.cafeId;
+
+
+    connection.query("INSERT INTO favorites (user_id, cafe_id) VALUES (?, ?)", [userId, cafeId]);
+
+
+    res.send(`New Favorite Cafe added`);
+});
 
 
 
